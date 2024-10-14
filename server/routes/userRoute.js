@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 const User = require("../models/userModel");
 
@@ -66,4 +67,10 @@ router.post("/login", async (req, res) => {
     }
 });
 
+router.get("/get-current-user", authMiddleware, (req, res) => {
+    res.send({
+        success: true,
+        user: req.user
+    });
+});
 module.exports = router;
