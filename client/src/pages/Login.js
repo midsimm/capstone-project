@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect} from 'react'
 import {Form , Input , Button, message} from 'antd'
 import {Link, useNavigate} from 'react-router-dom'
 import {LoginUser} from '../apicalls/users'
@@ -23,6 +23,14 @@ function Login() {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if(token) {
+      navigate("/");
+    }
+  }, [navigate]);
+
   return (
     <>
      <header className="App-header">
