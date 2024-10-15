@@ -67,10 +67,12 @@ router.post("/login", async (req, res) => {
     }
 });
 
-router.get("/get-current-user", authMiddleware, (req, res) => {
+router.get("/get-current-user", authMiddleware, async(req, res) => {
+    const user = await User.findById(req.body.userId).select("-password");
     res.send({
-        success: true,
-        user: req.user
-    });
+        data: user,
+        message: "User fetched successfully",
+        success: true
+    })
 });
 module.exports = router;
