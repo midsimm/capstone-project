@@ -1,12 +1,13 @@
 import React from 'react'
 import {Form , Input , Button, message} from 'antd'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {LoginUser} from '../apicalls/users'
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/userSlice';
 
 function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const submitForm = async (value) => {
     try {
       const response = await LoginUser(value);
@@ -14,7 +15,7 @@ function Login() {
         message.success(response.message);
         dispatch(setUser(response.user));
         localStorage.setItem("token", response.token);
-        // window.location.href = "/";
+        navigate("/");
       } else {
         message.error(response.message);
       }
