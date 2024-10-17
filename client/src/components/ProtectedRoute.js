@@ -58,7 +58,7 @@ function ProtectedRoute({children}) {
         } catch (err) {
             console.log(err);
         }
-    }, [dispatch]);
+    }, [dispatch, navigate]);
 
     useEffect(() => {
         if (!userData) {
