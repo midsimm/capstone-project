@@ -8,9 +8,6 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   const loading = useSelector(state => state.loader.loading);
-  const user = useSelector(state => state.user);
-  console.log(loading);
-  console.log(user);
   return (
     <div>
       {loading && (

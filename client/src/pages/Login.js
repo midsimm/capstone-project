@@ -4,16 +4,20 @@ import {Link, useNavigate} from 'react-router-dom'
 import {LoginUser} from '../apicalls/users'
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/userSlice';
+import { showLoading, hideLoading } from '../redux/loaderSlice';
 
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const submitForm = async (value) => {
     try {
+      dispatch(showLoading());
       const response = await LoginUser(value);
+      dispatch(hideLoading());
       if(response.success) {
         message.success(response.message);
-        dispatch(setUser(response.user));
+        console.log("simran dispatching user", response.data);
+        dispatch(setUser(response.data));
         localStorage.setItem("token", response.token);
         navigate("/");
       } else {
