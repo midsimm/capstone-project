@@ -16,7 +16,6 @@ function Login() {
       dispatch(hideLoading());
       if(response.success) {
         message.success(response.message);
-        console.log("simran dispatching user", response.data);
         dispatch(setUser(response.data));
         localStorage.setItem("token", response.token);
         navigate("/");
