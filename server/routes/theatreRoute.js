@@ -43,28 +43,46 @@ router.get('/:id', async (req, res) => {
 });
 
 // Update a theatre by ID
-router.put('/:id', async (req, res) => {
+router.put('/update-theatre', async (req, res) => {
     try {
-        const updatedTheatre = await Theatre.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const updatedTheatre = await Theatre.findByIdAndUpdate(req.body.theatreId, req.body, { new: true });
         if (!updatedTheatre) {
-            return res.status(404).json({ message: 'Theatre not found' });
+            return res.send({
+                success: false,
+                message: "Theatre not updated"
+            })
         }
-        res.status(200).json(updatedTheatre);
+        res.send({
+            success: true,
+            message: "Theatre updated successfully"
+        })
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.send({
+            success: false,
+            message: error.message
+        });
     }
 });
 
 // Delete a theatre by ID
-router.delete('/:id', async (req, res) => {
+router.delete('/delete-theatre', async (req, res) => {
     try {
-        const deletedTheatre = await Theatre.findByIdAndDelete(req.params.id);
+        const deletedTheatre = await Theatre.findByIdAndDelete(req.body.theatreId);
         if (!deletedTheatre) {
-            return res.status(404).json({ message: 'Theatre not found' });
+            return res.send({
+            success: false,
+            message: 'Theatre not found'
+            });
         }
-        res.status(200).json({ message: 'Theatre deleted successfully' });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.send({
+            success: true,
+            message: 'Theatre deleted successfully'
+        });
+        } catch (error) {
+        res.send({
+            success: false,
+            message: error.message
+        });
     }
 });
 
