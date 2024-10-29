@@ -5,6 +5,7 @@ const Theatre = require('../models/theatreModel');
 // Create a new theatre
 router.post('/add-theatre', async (req, res) => {
     try {
+        console.log(req.body);
         const newTheatre = new Theatre(req.body);
         await newTheatre.save();
         res.send({
@@ -14,18 +15,42 @@ router.post('/add-theatre', async (req, res) => {
     } catch (error) {
         res.send({
             success: false,
-            message: "Theatre not added"
+            message: error.message
         });
     }
 });
 
 // Get all theatres
-router.get('/', async (req, res) => {
+router.get('/get-all-theatres', async (req, res) => {
     try {
-        const theatres = await Theatre.find();
-        res.status(200).json(theatres);
+        const theatres = await Theatre.find().populate("owner");
+        res.send({
+            success: true,
+            message: "All theatres fetched",
+            data: theatres
+        })
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.send({
+            success: false,
+            message: error.message
+        })
+    }
+});
+
+//Get the theatres of a specific owner
+router.get('/get-theatres-by-owner', async (req, res) => {
+    try {
+        const theatres = await Theatre.find({ owner: req.body.owner });
+        res.send({
+            success: true,
+            message: "Theatres fetched",
+            data: theatres
+        })
+    } catch (error) {
+        res.send({
+            success: false,
+            message: error.message
+        })
     }
 });
 

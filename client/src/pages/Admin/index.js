@@ -1,18 +1,31 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { message } from 'antd';
+import MovieList from './MovieList';
+import { Tabs } from 'antd';
+import TheatresTable from './TheatresTable';
 
-function Admin() {
-    const navigate = useNavigate();
-    const userData = useSelector(state => state.user.data);
-    if(!userData?.isAdmin) {
-        navigate("/profile");
-        message.warning("You are a user not an admin");
-    }
+
+const Admin = () => {
+    const onChange = (key) => {
+        console.log(key);
+      };
+      const items = [
+        {
+          key: '1',
+          label: 'Movies',
+          children: <MovieList/>,
+        },
+        {
+          key: '2',
+          label: 'Theatre Requests',
+          children: <TheatresTable/>,
+        }
+      ];
+
     return (
-        <div>This is Admin Profile</div>
+        <>
+            <h1>Welcome to Admin panel!</h1>
+            <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+        </>
     )
 }
 
-export default Admin
+export default Admin;

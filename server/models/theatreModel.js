@@ -7,17 +7,13 @@ const theatreSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    location: {
-        type: String,
-        required: true
-    },
     email: {
         type: String,
         required: true,
         unique: true
     },
     phoneNumber: {
-        type: String,
+        type: Number,
         required: true
     },
     address: {
