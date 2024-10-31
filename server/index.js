@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const userRoutes = require('./routes/userRoute');
 const theatreRoutes = require('./routes/theatreRoute');
+const movieRoutes = require('./routes/movieRoutes');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use("/api/users", userRoutes);
 app.use("/api/theatres", theatreRoutes);
+app.use("/api/movies", movieRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

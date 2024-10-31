@@ -41,7 +41,7 @@ router.get('/get-all-movies',  async (req, res) => {
 // Fetch single movie by id
 router.post('/movie/:id',  async (req, res) => {
     try{
-        const movie = await Movie.findById(req.params.id);
+        const movie = await Movie.findById(req.body.id);
         res.send({
             success: true,
             message: "Movie fetched successfully!",

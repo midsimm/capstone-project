@@ -16,14 +16,16 @@ function Profile() {
       label: "Bookings",
       children: <BookingList />
     }
-  ]
+  ];
+
   const user = useSelector(state => state.user.data);
+
   return (
     <>
       <h1>Welcome {user.name} to your Profile!</h1>
       <Tabs defaultActiveKey='1' items={tabItems}/>
     </>
-  )
+  );
 }
 
-export default Profile
+export default Profile;
